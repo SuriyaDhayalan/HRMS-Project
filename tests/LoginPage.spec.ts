@@ -1,18 +1,13 @@
-import {test,expect} from '@playwright/test';
+import { test, expect } from './fixtures/pageFixtures';
 import { uniqueId, updateJson } from './utils/dataUtils';
-import { DashboardPage } from './Pages/DashboardPage';
-import { PIMPage } from './Pages/PIMPage';
 import AddEmployeePageData from '../test-data/AddEmployeePage.json';
 import PersonalDetailsPageData from '../test-data/PersonalDetailsPage.json';
-import { PersonalDetailsPage } from './Pages/PersonalDetailsPage';
 
-test('Load the Login Page', async ({ page }) => {
+test('Load the Login Page', async ({ page, dashboardPage, pimPage, personalDetailsPage }) => {
     // Already logged in via storageState from auth.setup.ts
     await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index');
-    const dashboardPage = new DashboardPage(page);
     await expect(dashboardPage.heading).toBeVisible();
     await dashboardPage.pimLink.click();
-    const pimPage = new PIMPage(page);
     await pimPage.addEmployeeLink.click();
     await pimPage.photoInput.setInputFiles('./test-data/images/employee.png');
     await pimPage.firstNameInput.fill(AddEmployeePageData.firstName);
@@ -33,20 +28,19 @@ test('Load the Login Page', async ({ page }) => {
     // Record the ID and username that were saved so the JSON shows the latest employee
     updateJson('./test-data/AddEmployeePage.json', { employeeId, username });
 
-    const personaldetailPage = new PersonalDetailsPage(page);
-    await expect(page).toHaveURL(personaldetailPage.url);
-    await expect(personaldetailPage.heading).toBeVisible();
+    await expect(page).toHaveURL(personalDetailsPage.url);
+    await expect(personalDetailsPage.heading).toBeVisible();
     // Form loads its saved values after the heading; wait so they don't overwrite what we type
-    await expect(personaldetailPage.employeeIdInput).toHaveValue(employeeId);
-    await personaldetailPage.otherIdInput.fill(PersonalDetailsPageData.otherId);
-    await personaldetailPage.driversLicenseInput.fill(PersonalDetailsPageData.driversLicense);
-    await personaldetailPage.licenseExpiryDateInput.fill(PersonalDetailsPageData.licenseExpiryDate);
-    await personaldetailPage.selectOption(personaldetailPage.nationality, PersonalDetailsPageData.nationality);
-    await personaldetailPage.selectOption(personaldetailPage.maritalStatus, PersonalDetailsPageData.maritalStatus);
-    await personaldetailPage.dateOfbirth.fill(PersonalDetailsPageData.dateOfBirth);
-    await personaldetailPage.selectGender(PersonalDetailsPageData.gender);
-    await personaldetailPage.saveButton.click();
-    await expect(personaldetailPage.updatedText).toBeVisible();
+    await expect(personalDetailsPage.employeeIdInput).toHaveValue(employeeId);
+    await personalDetailsPage.otherIdInput.fill(PersonalDetailsPageData.otherId);
+    await personalDetailsPage.driversLicenseInput.fill(PersonalDetailsPageData.driversLicense);
+    await personalDetailsPage.licenseExpiryDateInput.fill(PersonalDetailsPageData.licenseExpiryDate);
+    await personalDetailsPage.selectOption(personalDetailsPage.nationality, PersonalDetailsPageData.nationality);
+    await personalDetailsPage.selectOption(personalDetailsPage.maritalStatus, PersonalDetailsPageData.maritalStatus);
+    await personalDetailsPage.dateOfbirth.fill(PersonalDetailsPageData.dateOfBirth);
+    await personalDetailsPage.selectGender(PersonalDetailsPageData.gender);
+    await personalDetailsPage.saveButton.click();
+    await expect(personalDetailsPage.updatedText).toBeVisible();
 
 
 });
