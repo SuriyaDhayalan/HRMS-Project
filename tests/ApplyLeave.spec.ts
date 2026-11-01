@@ -48,7 +48,7 @@ test.describe('Apply Leave', () => {
         await expect(leavePage.formLoader).toBeHidden();
     });
 
-    test('Apply leave with valid dates', async ({ leavePage }) => {
+    test('LR-01 Apply leave with valid dates', async ({ leavePage }) => {
         // 2. Select Leave Type "CAN - Personal"
         await leavePage.selectLeaveType(LeavePageData.leaveType);
 
@@ -61,7 +61,7 @@ test.describe('Apply Leave', () => {
         await expect(leavePage.savedText).toBeVisible();
     });
 
-    test('Apply leave with To Date before From Date', async ({ leavePage }) => {
+    test('LR-10 Apply leave with To Date before From Date', async ({ leavePage }) => {
         await leavePage.selectLeaveType(LeavePageData.leaveType);
 
         const from = weekdayBetween(periodStart, periodEnd);
