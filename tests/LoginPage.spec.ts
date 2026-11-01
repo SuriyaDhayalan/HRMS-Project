@@ -5,7 +5,7 @@ import PersonalDetailsPageData from '../test-data/PersonalDetailsPage.json';
 
 test('Load the Login Page', async ({ page, dashboardPage, pimPage, personalDetailsPage }) => {
     // Already logged in via storageState from auth.setup.ts
-    await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index');
+    await page.goto('/web/index.php/dashboard/index');
     await expect(dashboardPage.heading).toBeVisible();
     await dashboardPage.pimLink.click();
     await pimPage.addEmployeeLink.click();

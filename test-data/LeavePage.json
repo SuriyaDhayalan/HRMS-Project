@@ -1,0 +1,20 @@
+{
+   "leaveType":"CAN - Personal",
+   "leaveTypes":[
+      "CAN - Matternity",
+      "CAN - Personal",
+      "CAN - Vacation",
+      "Personal 1",
+      "Pesonal",
+      "POP",
+      "US - Bereavement",
+      "US - FMLA",
+      "US - Matternity",
+      "US - Personal",
+      "US - Vacation",
+      "US-PERSONAL1",
+      "vhag"
+   ],
+   "leavePeriod":"2026-01-01 - 2027-28-02",
+   "entitlement":"20"
+}
